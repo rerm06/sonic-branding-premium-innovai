@@ -1,146 +1,112 @@
-# 🎙️ Sonic Branding Premium - InnovAi
+# 🎙️ Sonic Branding Premium - InnovAi: Guía para Principiantes
 
-Plataforma de Diseño Sonoro y Branding impulsada por IA, diseñada específicamente para el **80 Aniversario del ICPR**. Esta aplicación permite la creación de activos sonoros, análisis de marca y orquestación de campañas mediante agentes inteligentes.
-
----
-
-## 🛠️ Stack Tecnológico
-
-- **Frontend**: React 19 + TypeScript + Vite
-- **Estética**: Tailwind CSS 4.0 + Framer Motion (Glassmorphism & 3D Transitions)
-- **Base de Datos & Auth**: Supabase
-- **IA Generativa**: Google Gemini (Contenido y Storyboards)
-- **Síntesis de Voz**: ElevenLabs (Voces Institucionales Clonadas)
-- **Visualización**: Wavesurfer.js & Recharts
+¡Bienvenido! Esta es la guía maestra para poner en marcha la plataforma de **Sonic Branding del ICPR (80 Aniversario)**. Si no sabes nada de programación, GitHub o terminales, no te preocupes. Esta guía está diseñada para llevarte de la mano, paso a paso, como si estuviéramos juntos frente a la computadora.
 
 ---
 
-## 🚀 Guía de Inicio Rápido
+## 🌟 ¿Qué es esta aplicación?
+Es una "estación de trabajo inteligente". Permite crear música, voces y diseños usando Inteligencia Artificial para la marca ICPR. Imagínalo como un centro de mando donde la IA hace el trabajo pesado de creación.
 
-Sigue estos pasos para tener la aplicación corriendo en tu entorno local:
+---
 
-### 1. Requisitos Previos
+## 🛠️ Requisitos: Lo que necesitas tener instalado
+Antes de empezar, necesitamos dos "herramientas" básicas en tu computadora:
 
-- **Node.js**: Versión 18.0 o superior recomendada.
-- **NPM**: Incluido con Node.js.
-- **Cuenta de Supabase**: Para la base de datos y autenticación.
-- **API Keys**: Google AI Studio (Gemini) y ElevenLabs.
+1.  **Node.js**: Es el "motor" que permite que la aplicación funcione.
+    *   **Cómo instalarlo**: Ve a [nodejs.org](https://nodejs.org/), descarga la versión que dice **"LTS"** (la más estable) e instálala como cualquier otro programa (Siguiente, Siguiente, Siguiente).
+2.  **Visual Studio Code (VS Code)**: Es el "bloc de notas" especial donde veremos el código.
+    *   **Cómo instalarlo**: Descárgalo en [code.visualstudio.com](https://code.visualstudio.com/).
+3.  **Git**: Es el sistema que nos permite descargar el proyecto de internet.
+    *   **Cómo instalarlo**: Ve a [git-scm.com](https://git-scm.com/) y descárgalo.
 
-### 2. Instalación
+---
 
-Clona el repositorio y entra en la carpeta del proyecto:
+## 🚀 Paso a Paso: Desde Cero hasta Correr la App
 
+### Paso 1: Descargar el Proyecto (Clonar)
+1.  Abre el programa **Terminal** (en Mac busca "Terminal" en Spotlight; en Windows busca "PowerShell").
+2.  Escribe esto y presiona la tecla Enter:
+    ```bash
+    git clone https://github.com/rerm06/sonic-branding-premium-innovai.git
+    ```
+    *Esto creará una carpeta en tu computadora con todos los archivos.*
+3.  Entra a esa carpeta escribiendo:
+    ```bash
+    cd sonic-branding-premium-innovai
+    ```
+
+### Paso 2: Instalar las "Piezas" (Dependencias)
+La aplicación es como un set de LEGO. Ya tienes las instrucciones, ahora necesitamos traer todas las piezas.
+1.  En la misma terminal, escribe esto y espera a que termine:
+    ```bash
+    npm install
+    ```
+    *Verás muchas barras de carga. Es normal. Significa que está descargando las herramientas necesarias.*
+
+### Paso 3: Configurar las "Llaves" (API Keys)
+Para que la Inteligencia Artificial te conteste, necesitamos poner las "llaves" de los servicios.
+1.  Abre la carpeta del proyecto en **Visual Studio Code**.
+2.  Busca un archivo llamado `.env` (si no existe, crea uno nuevo con ese nombre exacto: punto e n v).
+3.  Copia y pega este texto dentro, reemplazando lo que está entre comillas con tus llaves reales:
+    ```text
+    VITE_GEMINI_API_KEY="TU_LLAVE_DE_GOOGLE_AQUI"
+    VITE_ELEVENLABS_API_KEY="TU_LLAVE_DE_ELEVENLABS_AQUI"
+    ```
+    *¿Dónde consigo estas llaves?*
+    - **Google Gemini**: En [Google AI Studio](https://aistudio.google.com/).
+    - **ElevenLabs**: En tu perfil de [ElevenLabs.io](https://elevenlabs.io/).
+
+### Paso 4: Preparar la Base de Datos (Supabase)
+La app necesita un lugar donde guardar lo que creas.
+1.  Entra a [supabase.com](https://supabase.com/) y crea un proyecto gratuito.
+2.  Busca una sección llamada **"SQL Editor"** (tiene un icono de `>_`).
+3.  Haz clic en "New Query" y pega este código (no intentes entenderlo, solo pégalo y dale al botón **RUN**):
+    ```sql
+    -- Este código crea el espacio para guardar tus audios y videos
+    CREATE TABLE IF NOT EXISTS innovation_assets (
+      id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+      user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE,
+      type TEXT NOT NULL CHECK (type IN ('image', 'audio', 'video')),
+      url TEXT NOT NULL,
+      prompt TEXT,
+      metadata JSONB DEFAULT '{}'::jsonb,
+      created_at TIMESTAMPTZ DEFAULT NOW()
+    );
+    ```
+
+### Paso 5: ¡Encender la Aplicación!
+Este es el momento de la verdad.
+1.  Regresa a tu terminal y escribe:
+    ```bash
+    npm run dev
+    ```
+2.  Verás un mensaje que dice algo como: `  ➜  Local:   http://localhost:3000/`
+3.  Presiona la tecla **Command (o Ctrl)** y haz clic en ese enlace, ¡o ábrelo en tu navegador favorito!
+
+---
+
+## 📂 ¿Qué hay dentro de las carpetas? (Explicación simple)
+Si abres el proyecto, verás carpetas. Aquí te explico qué son de forma sencilla:
+
+- **`src/components`**: Aquí están las "ventanas" y "botones" que ves en la pantalla.
+- **`src/lib`**: Aquí están las "neuronas" que conectan con la Inteligencia Artificial.
+- **`dist`**: Es la versión "terminada" de la app, lista para subirse a internet como una página web real.
+- **`public`**: Aquí guardamos las imágenes fijas y logos (como el del 80 Aniversario).
+
+---
+
+## 🆘 Problemas Comunes y Soluciones
+- **"No se reconoce el comando npm"**: Significa que Node.js no se instaló bien. Reinicia tu computadora.
+- **"Error de API Key"**: Revisa que en el archivo `.env` no haya espacios extra y que las comillas estén bien puestas.
+- **"Pantalla en blanco"**: Abre la consola del navegador (clic derecho -> Inspeccionar -> Console) para ver si hay algún error en rojo.
+
+---
+
+## 💡 Consejo de Oro
+Si alguna vez quieres actualizar la aplicación con los cambios de GitHub, solo escribe en la terminal:
 ```bash
-git clone https://github.com/rerm06/sonic-branding-premium-innovai.git
-cd sonic-branding-premium-innovai
-```
-
-Instala las dependencias:
-
-```bash
-npm install
-```
-
-### 3. Configuración de Variables de Entorno
-
-Crea un archivo `.env` en la raíz del proyecto basándote en la siguiente estructura:
-
-```bash
-# Google Gemini API Key
-VITE_GEMINI_API_KEY="tu_api_key_aqui"
-
-# ElevenLabs API Key
-VITE_ELEVENLABS_API_KEY="tu_api_key_aqui"
-
-# Supabase (Opcional si usas los del cliente hardcodeado para pruebas)
-VITE_SUPABASE_URL="tu_url_supabase"
-VITE_SUPABASE_ANON_KEY="tu_anon_key"
-```
-
-### 4. Configuración de Base de Datos (Supabase)
-
-Para que el **Innovation Lab** y el **Music Lab** funcionen correctamente, debes crear las tablas necesarias. Ve a tu editor SQL en Supabase y ejecuta:
-
-```sql
--- Tabla para activos generados en el laboratorio
-CREATE TABLE IF NOT EXISTS innovation_assets (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE,
-  type TEXT NOT NULL CHECK (type IN ('image', 'audio', 'video')),
-  url TEXT NOT NULL,
-  prompt TEXT,
-  metadata JSONB DEFAULT '{}'::jsonb,
-  created_at TIMESTAMPTZ DEFAULT NOW()
-);
-
--- Habilitar RLS (Row Level Security)
-ALTER TABLE innovation_assets ENABLE ROW LEVEL SECURITY;
-
--- Políticas de Acceso
-CREATE POLICY "Users can view their own lab assets" ON innovation_assets FOR SELECT USING (auth.uid() = user_id);
-CREATE POLICY "Users can create their own lab assets" ON innovation_assets FOR INSERT WITH CHECK (auth.uid() = user_id);
-CREATE POLICY "Users can delete their own lab assets" ON innovation_assets FOR DELETE USING (auth.uid() = user_id);
-```
-
-### 5. Ejecución del Servidor de Desarrollo
-
-Inicia la aplicación en modo desarrollo:
-
-```bash
-npm run dev
-```
-
-La aplicación estará disponible en [http://localhost:3000](http://localhost:3000).
-
----
-
-## 📦 Producción & Despliegue
-
-### Construcción del Proyecto
-
-Para generar el bundle optimizado para producción:
-
-```bash
-npm run build
-```
-
-Esto creará una carpeta `dist/` con todos los archivos estáticos listos para ser desplegados en Vercel, Netlify o cualquier servidor estático.
-
-### Previsualización
-
-Para probar el build de producción localmente:
-
-```bash
-npm run preview
+git pull origin main
 ```
 
 ---
-
-## 📂 Estructura del Proyecto
-
-```text
-src/
-├── components/     # Bloques de UI Premium organizados por módulos
-├── context/        # Estados globales (Presentation & Studio)
-├── lib/            # Singletons de servicios (Supabase, AI, Audio)
-├── modules/        # Business Logic para campañas de IA
-├── scripts/        # Utilidades de ingesta y mantenimiento
-├── App.tsx         # Orquestador principal de navegación
-└── index.tsx       # Punto de entrada de React
-```
-
----
-
-## 🛡️ Seguridad y Buenas Prácticas
-
-- **Cero `any`**: El proyecto está estrictamente tipado con TypeScript.
-- **Glassmorphism**: Todos los paneles usan la utilidad `.glass-panel` definida en `index.css`.
-- **Rutas Prohibidas**: Los archivos sensibles como `.env` están explícitamente excluidos en `.gitignore`.
-
----
-
-## 📝 Notas de Versión
-**v1.0.0**: Migración completa a estructura `/src` y soporte para Tailwind 4.0. Sincronización con Repositorio Premium InnovAi.
-
----
-> Desarrollado por **Innovai Solution** bajo el estándar "Elite" de Google Antigravity.
+> Elaborado por **Innovai Solution** - Diseñado para ser entendido por humanos, no solo por máquinas. 🚀
