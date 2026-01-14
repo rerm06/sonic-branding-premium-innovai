@@ -1,58 +1,31 @@
-# GEMINI.md — Plan Maestro del Proyecto: Nuevo Repositorio GitHub
+# GEMINI.md — Plan Maestro del Proyecto
 
 ## 1) Resumen ejecutivo
-- Este proyecto consiste en la creación de un **nuevo repositorio en GitHub** para la plataforma **Sonic Branding Premium**, asegurando que todo el código actual, estética y módulos de IA se sincronicen correctamente en una nueva ubicación remota.
+- Qué se va a construir: Una plataforma de Sonic Branding Premium para ICPR Junior College.
+- Valor para el usuario: Centralizar la identidad sonora y visual en una experiencia interactiva de alta fidelidad.
+- Resultado esperado: Repositorio en GitHub con código estructurado en `/src` y documentación detallada.
 
 ## 2) Interpretación de la solicitud
-- **Intención del usuario**: Crear un repositorio limpio y nuevo en GitHub para el proyecto actual.
-- **Alcance IN**: 
-  - Creación de repositorio vía API de GitHub.
-  - Configuración de remotos en Git local.
-  - Push de la rama `main` al nuevo repositorio.
-- **Alcance OUT**: 
-  - Migración de issues o PRs antiguos.
+- Intención del usuario: Subir el proyecto completo a GitHub.
+- Alcance IN: Estructuración `/src`, README ultra-detallado, configuración de remotos, push de archivos.
+- Alcance OUT: Hosting final (Netlify/Vercel) no solicitado explícitamente pero preparado en build.
 
 ## 3) Supuestos y decisiones (sin preguntas)
-- **Supuestos**:
-  1. El usuario desea el repositorio en su cuenta personal (`rerm06`).
-  2. El nombre del repositorio será `sonic-branding-premium-innovai`.
-- **Decisiones**:
-  1. Se creará el repo como **público** para facilitar la visibilidad inicial (a menos que se indique lo contrario, pero por defecto los proyectos de portafolio suelen serlo).
-  2. Se renombrará el remoto actual `origin` a `backup` y el nuevo será `origin`.
+1. Supuesto: El usuario tiene un token de GitHub configurado localmente pero falla la autenticación de terminal.
+2. Decisión: Usar MCP `github-mcp-server` para realizar los pushes iniciales y asegurar la integridad del repositorio remoto.
 
 ## 4) Entregables
-- Nuevo repositorio en GitHub: `https://github.com/rerm06/sonic-branding-premium-innovai`.
-- Código fuente sincronizado.
+- Repositorio: `sonic-branding-premium-innovai`
+- Estructura limpia en `/src`.
+- README.md para no-desarrolladores.
 
 ## 5) Criterios de aceptación y validación
-- El comando `git push origin main` debe ejecutarse exitosamente.
-- URL del repositorio accesible y con archivos visibles.
-
-## 6) Arquitectura y diseño
-- **Repositorio**: GitHub Personal.
-- **Branch Strategy**: Main branch as primary.
-
-## 7) Cadena multi‑agente (roles y handoffs)
-- **Agent 1: Architect (Orchestrator)**: Gestiona la creación del repo y configuración de Git.
-- **Agent 2: Implementation (Git)**: Ejecuta los comandos de push y config.
-- **Agent 3: Validator**: Confirma la existencia del repo y la integridad de los archivos.
+- El repositorio en GitHub debe reflejar la estructura local actual.
+- Las dependencias deben estar actualizadas en `package.json`.
+- La configuración de Vite y Tailwind debe apuntar a `/src`.
 
 ## 8) Plan por fases (end-to-end)
-- **Fase 0**: Preparación (Verificar estado local).
-- **Fase 1**: Crear repositorio en GitHub.
-- **Fase 2**: Reconfigurar remotos locales.
-- **Fase 3**: Push inicial.
-- **Fase 4**: Validación final.
-
-## 9) Políticas de ejecución (terminal/browser) y seguridad
-- No se incluirán archivos sensibles (ignorados por `.gitignore`).
-- Se verificará el contenido de `RECREATION_PROMPT.md` antes de subir.
-
-## 10) Estándares de calidad
-- commits limpios.
-- Documentación mínima requerida en el repo.
-
-## 11) Registro de cambios y evidencia
-- [x] Creación de repo: Exitoso.
-- [ ] Push local: Fallido (Terminal Auth).
-- [x] Sincronización vía MCP (Archivos base): Completada.
+Fase 0: Preparación (Restructuración `/src`). Completado.
+Fase 1: Documentación (README ultra-detallado). Completado.
+Fase 2: GitHub (Creación y Push inicial). Completado vía MCP.
+Fase 3: Validación Final. En curso.
